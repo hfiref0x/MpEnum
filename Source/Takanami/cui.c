@@ -56,14 +56,98 @@ VOID cuiInitialize(
 }
 
 /*
-* cuiPrintText
+* cuiClrScr
+*
+* Purpose:
+*
+* Clear screen.
+*
+*/
+VOID cuiClrScr(
+    VOID
+)
+{
+    COORD coordScreen;
+    DWORD cCharsWritten;
+    DWORD dwConSize;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    coordScreen.X = 0;
+    coordScreen.Y = 0;
+
+    if (!GetConsoleScreenBufferInfo(g_ConOut, &csbi))
+        return;
+
+    dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+
+    if (!FillConsoleOutputCharacter(g_ConOut, TEXT(' '),
+        dwConSize, coordScreen, &cCharsWritten))
+        return;
+
+    if (!GetConsoleScreenBufferInfo(g_ConOut, &csbi))
+        return;
+
+    if (!FillConsoleOutputAttribute(g_ConOut, csbi.wAttributes,
+        dwConSize, coordScreen, &cCharsWritten))
+        return;
+
+    SetConsoleCursorPosition(g_ConOut, coordScreen);
+}
+
+/*
+* cuiPrintTextA
 *
 * Purpose:
 *
 * Output text to the console or file.
+* ANSI version.
 *
 */
-VOID cuiPrintText(
+VOID cuiPrintTextA(
+    _In_ LPSTR lpText,
+    _In_ BOOL UseReturn
+)
+{
+    SIZE_T consoleIO;
+    DWORD bytesIO;
+    LPSTR Buffer;
+
+    if (lpText == NULL)
+        return;
+
+    consoleIO = _strlen_a(lpText);
+    if ((consoleIO == 0) || (consoleIO > MAX_PATH * 4))
+        return;
+
+    consoleIO = 5 + consoleIO;
+    Buffer = (LPSTR)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, consoleIO);
+    if (Buffer) {
+
+        _strcpy_a(Buffer, lpText);
+        if (UseReturn) _strcat_a(Buffer, "\r\n");
+
+        consoleIO = _strlen_a(Buffer);
+
+        if (g_ConsoleOutput != FALSE) {
+            WriteConsoleA(g_ConOut, Buffer, (DWORD)consoleIO, &bytesIO, NULL);
+        }
+        else {
+            WriteFile(g_ConOut, Buffer, (DWORD)consoleIO, &bytesIO, NULL);
+        }
+        HeapFree(GetProcessHeap(), 0, Buffer);
+    }
+}
+
+/*
+* cuiPrintTextW
+*
+* Purpose:
+*
+* Output text to the console or file.
+* UNICODE version.
+*
+*/
+VOID cuiPrintTextW(
 	_In_ LPWSTR lpText,
 	_In_ BOOL UseReturn
 	)
@@ -75,7 +159,7 @@ VOID cuiPrintText(
 	if (lpText == NULL)
 		return;
 
-	consoleIO = _strlen(lpText);
+	consoleIO = _strlen_w(lpText);
 	if ((consoleIO == 0) || (consoleIO > MAX_PATH * 4))
 		return;
 
@@ -84,12 +168,12 @@ VOID cuiPrintText(
 	if (Buffer) {
 
 		_strcpy(Buffer, lpText);
-		if (UseReturn) _strcat(Buffer, TEXT("\r\n"));
+		if (UseReturn) _strcat_w(Buffer, TEXT("\r\n"));
 
-		consoleIO = _strlen(Buffer);
+		consoleIO = _strlen_w(Buffer);
 
 		if (g_ConsoleOutput != FALSE) {
-			WriteConsole(g_ConOut, Buffer, (DWORD)consoleIO, &bytesIO, NULL);
+			WriteConsoleW(g_ConOut, Buffer, (DWORD)consoleIO, &bytesIO, NULL);
 		}
 		else {
 			WriteFile(g_ConOut, Buffer, (DWORD)(consoleIO * sizeof(WCHAR)), &bytesIO, NULL);
@@ -99,20 +183,41 @@ VOID cuiPrintText(
 }
 
 /*
-* cuiPrintTextLastError
+* cuiPrintTextLastErrorA
 *
 * Purpose:
 *
 * Output LastError translated code to the console or file.
+* ANSI version.
 *
 */
-VOID cuiPrintTextLastError(
+VOID cuiPrintTextLastErrorA(
     _In_ BOOL UseReturn
     )
 {
-    WCHAR szTextBuffer[512];
+    CHAR szTextBuffer[512];
     DWORD dwLastError = GetLastError();
     
-    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, dwLastError, LANG_USER_DEFAULT, (LPWSTR)&szTextBuffer, 512, NULL);
-    cuiPrintText(szTextBuffer, UseReturn);
+    FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, dwLastError, LANG_USER_DEFAULT, (LPSTR)&szTextBuffer, 512, NULL);
+    cuiPrintTextA(szTextBuffer, UseReturn);
+}
+
+/*
+* cuiPrintTextLastErrorW
+*
+* Purpose:
+*
+* Output LastError translated code to the console or file.
+* UNICODE version.
+*
+*/
+VOID cuiPrintTextLastErrorW(
+    _In_ BOOL UseReturn
+)
+{
+    WCHAR szTextBuffer[512];
+    DWORD dwLastError = GetLastError();
+
+    FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM, NULL, dwLastError, LANG_USER_DEFAULT, (LPWSTR)&szTextBuffer, 512, NULL);
+    cuiPrintTextW(szTextBuffer, UseReturn);
 }

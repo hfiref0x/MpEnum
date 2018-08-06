@@ -23,11 +23,33 @@ VOID cuiInitialize(
     _Out_opt_ PBOOL IsConsoleOutput
     );
 
-VOID cuiPrintText(
+#ifdef _UNICODE
+#define cuiPrintText cuiPrintTextW
+#define cuiPrintTextLastError cuiPrintTextLastErrorW
+#else
+#define cuiPrintText cuiPrintTextA
+#define cuiPrintTextLastError cuiPrintTextLastErrorA
+#endif
+
+
+VOID cuiPrintTextA(
+    _In_ LPSTR lpText,
+    _In_ BOOL UseReturn
+    );
+
+VOID cuiPrintTextW(
 	_In_ LPWSTR lpText,
 	_In_ BOOL UseReturn
 	);
 
-VOID cuiPrintTextLastError(
+VOID cuiPrintTextLastErrorA(
     _In_ BOOL UseReturn
+    );
+
+VOID cuiPrintTextLastErrorW(
+    _In_ BOOL UseReturn
+    );
+
+VOID cuiClrScr(
+    VOID
     );

@@ -213,7 +213,7 @@ VOID CatSave(
     DWORD bytesIO;
 
     WCHAR  wcBE = 0xFEFF;
-    WCHAR  szBuffer[2] = { '\r', '\n' };
+    WCHAR  szBuffer[] = { '\r', '\n' };
 
     __try {
 
@@ -237,7 +237,7 @@ VOID CatSave(
                         Name = Entry->MpInfo->Name;
                         if (Name) {
                             cuiPrintText(Name, TRUE);
-                            bytesIO = (DWORD)(1 + _strlen(Name)) * sizeof(WCHAR);
+                            bytesIO = (DWORD)(_strlen(Name)) * sizeof(WCHAR);
                             WriteFile(hFile, Name, bytesIO, &bytesIO, NULL);
                             WriteFile(hFile, szBuffer, sizeof(szBuffer), &bytesIO, NULL);
                         }
@@ -365,6 +365,7 @@ VOID main()
     //
     // Build path to MpClient.dll and load it.
     //
+    szProgramFiles[0] = 0;
     if (!SHGetSpecialFolderPath(NULL,
         szProgramFiles,
         CSIDL_PROGRAM_FILES,
@@ -447,11 +448,9 @@ VOID main()
                         CatEntryAdd(ThreatInfo);
                     }
                     else {
-#ifdef _DEBUG
                         if (ehr != S_FALSE) {
                             cuiPrintText(L"[!] MpThreatEnumerate->Unexpected failure\r\n", TRUE);
                         }
-#endif
                     }
                 }
                 __except (EXCEPTION_EXECUTE_HANDLER) {
