@@ -5,6 +5,7 @@
 # System Requirements
 
 * x86/x64 Windows 8/8.1/10;
+* R/W access to the current directory to be able save results;
 * Windows Defender Client.
 
 # Usage
