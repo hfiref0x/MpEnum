@@ -19,6 +19,10 @@ Included dump of following versions:
 + AS Signatures: 1.273.443.0
 + NIS Signatures: 1.273.443.0
 
+# Note
+
+Several categories are declared obsolete by MS and families moved to other categories (e.g Nuker category) or messed up with different categories for example TrojanDownloader:Win32/Delf, TrojanDownloader:Win32/Admedia and Trojan:Win32/NewCell in PUA category despite they have Trojan/TrojanDownloader family in their names.
+
 # Build
 
 MpEnum comes with full source code written in C. Please note that included MpClient.h is build on official available Microsoft documentation with fixes and updates that actually make it work. It maybe different from MS private version. In order to build from source you need Microsoft Visual Studio 2015 and later versions.

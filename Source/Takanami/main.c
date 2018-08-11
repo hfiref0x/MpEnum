@@ -6,7 +6,7 @@
 *
 *  VERSION:     1.00
 *
-*  DATE:        01 Aug 2018
+*  DATE:        10 Aug 2018
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -33,6 +33,180 @@ typedef struct _CAT {
 CAT g_CategoryHead;
 MP_API MpApiSet;
 HANDLE g_DumpHeap = NULL;
+
+/*
+* CatGetName
+*
+* Purpose:
+*
+* Set predefined category name.
+*
+* Note: several categories were out-dated and have duplicate entries with actual. We list everything.
+*
+*/
+VOID CatGetName(
+    _In_ PCAT Cat
+)
+{
+    LPWSTR lpCategory;
+
+    switch (Cat->Category) {
+    case MP_THREAT_CATEGORY_INVALID:
+        lpCategory = L"Invalid";
+        break;
+    case MP_THREAT_CATEGORY_ADWARE:
+        lpCategory = L"Adware";
+        break;
+    case MP_THREAT_CATEGORY_SPYWARE:
+        lpCategory = L"Spyware";
+        break;
+    case MP_THREAT_CATEGORY_PASSWORDSTEALER:
+        lpCategory = L"PWS";
+        break;
+    case MP_THREAT_CATEGORY_TROJANDOWNLOADER:
+        lpCategory = L"TrojanDownloader";
+        break;
+    case MP_THREAT_CATEGORY_WORM:
+        lpCategory = L"Worm";
+        break;
+    case MP_THREAT_CATEGORY_BACKDOOR:
+        lpCategory = L"Backdoor";
+        break;
+    case MP_THREAT_CATEGORY_REMOTEACCESSTROJAN:
+        lpCategory = L"RAT";
+        break;
+    case MP_THREAT_CATEGORY_TROJAN:
+        lpCategory = L"Trojan";
+        break;
+    case MP_THREAT_CATEGORY_EMAILFLOODER:
+        lpCategory = L"Spammer";
+        break;
+    case MP_THREAT_CATEGORY_KEYLOGGER:
+        lpCategory = L"Keylogger";
+        break;
+    case MP_THREAT_CATEGORY_DIALER:
+        lpCategory = L"Dialer";
+        break;
+    case MP_THREAT_CATEGORY_MONITORINGSOFTWARE:
+        lpCategory = L"MonitoringTool";
+        break;
+    case MP_THREAT_CATEGORY_BROWSERMODIFIER:
+        lpCategory = L"BrowserModifier";
+        break;
+    case MP_THREAT_CATEGORY_COOKIE:
+        lpCategory = L"Cookie";
+        break;
+    case MP_THREAT_CATEGORY_BROWSERPLUGIN:
+        lpCategory = L"BrowserPlugin";
+        break;
+    case MP_THREAT_CATEGORY_AOLEXPLOIT:
+        lpCategory = L"AolExploit";
+        break;
+    case MP_THREAT_CATEGORY_NUKER:
+        lpCategory = L"Nuker";
+        break;
+    case MP_THREAT_CATEGORY_SECURITYDISABLER:
+        lpCategory = L"SecurityDisabler";
+        break;
+    case MP_THREAT_CATEGORY_JOKEPROGRAM:
+        lpCategory = L"Joke";
+        break;
+    case MP_THREAT_CATEGORY_HOSTILEACTIVEXCONTROL:
+        lpCategory = L"ActiveX";
+        break;
+    case MP_THREAT_CATEGORY_SOFTWAREBUNDLER:
+        lpCategory = L"SoftwareBundler";
+        break;
+    case MP_THREAT_CATEGORY_STEALTHNOTIFIER:
+        lpCategory = L"TrojanClicker";
+        break;
+    case MP_THREAT_CATEGORY_SETTINGSMODIFIER:
+        lpCategory = L"SettingsModifier";
+        break;
+    case MP_THREAT_CATEGORY_TOOLBAR:
+        lpCategory = L"Toolbar";
+        break;
+    case MP_THREAT_CATEGORY_REMOTECONTROLSOFTWARE:
+        lpCategory = L"RemoteControlSoftware";
+        break;
+    case MP_THREAT_CATEGORY_TROJANFTP:
+        lpCategory = L"TrojanFtp";
+        break;
+    case MP_THREAT_CATEGORY_POTENTIALUNWANTEDSOFTWARE:
+        lpCategory = L"PUA";
+        break;
+    case MP_THREAT_CATEGORY_ICQEXPLOIT:
+        lpCategory = L"IcqExploit";
+        break;
+    case MP_THREAT_CATEGORY_TROJANTELNET:
+        lpCategory = L"TrojanTelnet";
+        break;
+    case MP_THREAT_CATEGORY_EXPLOIT:
+        lpCategory = L"Exploit";
+        break;
+    case MP_THREAT_CATEGORY_FILESHARINGPROGRAM:
+        lpCategory = L"FileSharing";
+        break;
+    case MP_THREAT_CATEGORY_MALWARE_CREATION_TOOL:
+        lpCategory = L"Constructor";
+        break;
+    case MP_THREAT_CATEGORY_REMOTE_CONTROL_SOFTWARE:
+        lpCategory = L"RemoteAccess";
+        break;
+    case MP_THREAT_CATEGORY_TOOL:
+        lpCategory = L"Tool";
+        break;
+    case MP_THREAT_CATEGORY_TROJAN_DENIALOFSERVICE:
+        lpCategory = L"DoS";
+        break;
+    case MP_THREAT_CATEGORY_TROJAN_DROPPER:
+        lpCategory = L"TrojanDropper";
+        break;
+    case MP_THREAT_CATEGORY_TROJAN_MASSMAILER:
+        lpCategory = L"MassMailer";
+        break;
+    case MP_THREAT_CATEGORY_TROJAN_MONITORINGSOFTWARE:
+        lpCategory = L"TrojanSpy";
+        break;
+    case MP_THREAT_CATEGORY_TROJAN_PROXYSERVER:
+        lpCategory = L"TrojanProxy";
+        break;
+    case MP_THREAT_CATEGORY_TROJAN_PROXYSERVER + 1:
+        lpCategory = L"Unknown41";
+        break;
+    case MP_THREAT_CATEGORY_VIRUS:
+        lpCategory = L"Virus";
+        break;
+    case MP_THREAT_CATEGORY_KNOWN:
+        lpCategory = L"FriendlyFiles";
+        break;
+    case MP_THREAT_CATEGORY_UNKNOWN:
+        lpCategory = L"Unknown";
+        break;
+    case MP_THREAT_CATEGORY_SPP:
+        lpCategory = L"SoftwareProtectionPlatform";
+        break;
+    case MP_THREAT_CATEGORY_BEHAVIOR:
+        lpCategory = L"Behavior";
+        break;
+    case MP_THREAT_CATEGORY_VULNERABILTIY:
+        lpCategory = L"NisVulnerability";
+        break;
+    case MP_THREAT_CATEGORY_POLICY:
+        lpCategory = L"NisPolicy";
+        break;
+    case MP_THREAT_CATEGORY_EUS:
+        lpCategory = L"EUS";
+        break;
+    case MP_THREAT_CATEGORY_RANSOM:
+        lpCategory = L"Ransom";
+        break;
+    default:
+        lpCategory = L"UnknownCategory";
+        break;
+    }
+    _strncpy(Cat->Name, MAX_PATH, lpCategory, MAX_PATH);
+}
 
 /*
 * CatExist
@@ -71,7 +245,6 @@ PCAT CatAdd(
 )
 {
     PCAT CatEntry;
-    SIZE_T i, k;
 
     CatEntry = CatExist(ThreatInfo->ThreatCategory);
     if (CatEntry != NULL)
@@ -87,21 +260,8 @@ PCAT CatAdd(
 
     CatEntry = CatEntry->Next;
     CatEntry->Category = ThreatInfo->ThreatCategory;
+    CatGetName(CatEntry);
 
-    if (ThreatInfo->ThreatCategory == MP_THREAT_CATEGORY_INVALID) {
-        _strcpy(CatEntry->Name, L"Invalid");
-    }
-    else {
-        k = _strlen(ThreatInfo->Name);
-
-        for (i = 0; i < k; i++) {
-            if (ThreatInfo->Name[i] == L':')
-                break;
-        }
-
-        _strncpy(CatEntry->Name, MAX_PATH, ThreatInfo->Name, i);
-
-    }
     return CatEntry;
 }
 
@@ -140,7 +300,7 @@ PCAT_ENTRY CatEntryAdd(
 
     }
     __except (EXCEPTION_EXECUTE_HANDLER) {
-       //nothing
+        //nothing
     }
     return Entry;
 }
@@ -283,6 +443,14 @@ VOID MpShowLastErrorDebug(
     }
 }
 
+/*
+* PrintComponentVersion
+*
+* Purpose:
+*
+* Output WD component versions.
+*
+*/
 VOID PrintComponentVersion(
     _In_ LPWSTR Component,
     _In_ ULONGLONG ComponentVersion
@@ -324,7 +492,6 @@ VOID main()
 {
     HANDLE hMpClient = NULL;
     WCHAR szBuffer[MAX_PATH * 2];
-    WCHAR szProgramFiles[MAX_PATH];
 
     MPHANDLE MpHandle = NULL, ThreatEnumHandle = NULL;
     HRESULT hr, ehr = S_FALSE;
@@ -333,6 +500,10 @@ VOID main()
     MPVERSION_INFO MpVersion;
 
     LPWSTR lastError = NULL, lpCategory = NULL;
+
+    PWSTR lpProgramFiles = NULL, dllPath;
+
+    SIZE_T Length;
 
     PCAT Cat;
 
@@ -350,7 +521,7 @@ VOID main()
     cuiInitialize(FALSE, NULL);
 
     cuiPrintText(L"[+] Takanami v1.0.0.1808", TRUE);
-    
+
     if (!IsWindows8OrGreater()) {
 
         if (MessageBox(GetForegroundWindow(), L"You need at least Windows 8, continue?",
@@ -365,20 +536,22 @@ VOID main()
     //
     // Build path to MpClient.dll and load it.
     //
-    szProgramFiles[0] = 0;
-    if (!SHGetSpecialFolderPath(NULL,
-        szProgramFiles,
-        CSIDL_PROGRAM_FILES,
-        FALSE))
-    {
-        cuiPrintText(L"[!] SHGetSpecialFolderPath->Unexpected error\r\n", TRUE);
+    if (SHGetKnownFolderPath(&FOLDERID_ProgramFiles, 0, NULL, &lpProgramFiles) != S_OK) {
+        cuiPrintText(L"[!] SHGetKnownFolderPath->Unexpected error\r\n", TRUE);
+        ExitProcess(ERROR_ASSERTION_FAILURE);
+    }
+      
+    Length = _strlen(lpProgramFiles);
+    dllPath = HeapAlloc(g_DumpHeap, HEAP_ZERO_MEMORY, (MAX_PATH + Length) * sizeof(WCHAR));
+    if (dllPath == NULL) {
+        cuiPrintText(L"[!] HeapAlloc->Unexpected error\r\n", TRUE);
         ExitProcess(ERROR_ASSERTION_FAILURE);
     }
 
-    _strcpy(szBuffer, szProgramFiles);
-    _strcat(szBuffer, TEXT("\\Windows Defender\\MpClient.dll"));
+    _strcpy(dllPath, lpProgramFiles);
+    _strcat(dllPath, TEXT("\\Windows Defender\\MpClient.dll"));
 
-    hMpClient = LoadLibraryEx(szBuffer, NULL, 0);
+    hMpClient = LoadLibraryEx(dllPath, NULL, 0);
     if (hMpClient == NULL) {
         cuiPrintText(L"[!] LoadLibraryExW(MpClient)->Unexpected error\r\n", TRUE);
         ExitProcess(ERROR_ASSERTION_FAILURE);
@@ -435,7 +608,7 @@ VOID main()
 
         if (SUCCEEDED(hr)) {
 
-            cuiPrintText(L"[+] MpThreatOpen success, enumerating...", TRUE);
+            cuiPrintText(L"\r\n[+] MpThreatOpen success, enumerating...", TRUE);
 
             //
             // Enumerate all entries in DB and move them into cats.
@@ -454,9 +627,7 @@ VOID main()
                     }
                 }
                 __except (EXCEPTION_EXECUTE_HANDLER) {
-#ifdef _DEBUG
                     OutputDebugString(L"ex\r\n");
-#endif
                 }
 
             } while (ehr != S_FALSE);
@@ -666,6 +837,7 @@ VOID main()
     //
     HeapDestroy(g_DumpHeap);
     FreeLibrary(hMpClient);
+    CoTaskMemFree(lpProgramFiles);
     cuiPrintText(L"[+] Bye!", TRUE);
     ExitProcess(0);
 }

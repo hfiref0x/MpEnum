@@ -14,6 +14,9 @@ Abstract:
 
 #pragma once
 
+#ifndef _MPCLIENT_
+#define _MPCLIENT_
+
 typedef HANDLE *PMPHANDLE;
 typedef HANDLE MPHANDLE;
 typedef ULONG MPTHREAT_ID;
@@ -719,3 +722,5 @@ typedef HRESULT(WINAPI *pfnMpScanStart)(
 typedef HRESULT(WINAPI *pfnMpScanControl)(
     _In_ MPHANDLE  hScanHandle,
     _In_ MPCONTROL ScanControl);
+
+#endif // !_MPCLIENT_
