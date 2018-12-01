@@ -4,9 +4,9 @@
 *
 *  TITLE:       GLOBAL.H
 *
-*  VERSION:     1.00
+*  VERSION:     1.01
 *
-*  DATE:        10 Aug 2018
+*  DATE:        29 Nov 2018
 *
 *  Common include header file.
 *
@@ -28,12 +28,15 @@
 #error ANSI build is not supported
 #endif
 
-#if (_MSC_VER >= 1900) 
+#if defined (_MSC_VER)
+#if (_MSC_VER >= 1910)
 #ifdef _DEBUG
 #pragma comment(lib, "vcruntimed.lib")
 #pragma comment(lib, "ucrtd.lib")
 #else
+#pragma comment(lib, "libucrt.lib")
 #pragma comment(lib, "libvcruntime.lib")
+#endif
 #endif
 #endif
 
@@ -51,4 +54,4 @@ typedef struct _MP_API {
     pfnMpErrorMessageFormat MpErrorMessageFormat;
     pfnMpManagerVersionQuery MpManagerVersionQuery;
     pfnWDStatus WDStatus;
-} MP_API; *PMP_API;
+} MP_API, *PMP_API;
