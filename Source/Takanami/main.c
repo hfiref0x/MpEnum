@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT AUTHORS, 2018
+*  (C) COPYRIGHT AUTHORS, 2018 - 2019
 *
 *  TITLE:       MAIN.C
 *
-*  VERSION:     1.01
+*  VERSION:     1.02
 *
-*  DATE:        28 Nov 2018
+*  DATE:        20 May 2019
 *
 * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 * ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
@@ -300,7 +300,7 @@ PCAT_ENTRY CatEntryAdd(
 
     }
     __except (EXCEPTION_EXECUTE_HANDLER) {
-        //nothing
+        return NULL;
     }
     return Entry;
 }
@@ -532,7 +532,7 @@ VOID main()
     //
     cuiInitialize(FALSE, NULL);
 
-    cuiPrintText(L"[+] Takanami v1.0.1.1811", TRUE);
+    cuiPrintText(L"[+] Takanami v1.0.2.1905", TRUE);
 
     if (!IsWindows8OrGreater()) {
 

@@ -1,12 +1,12 @@
 /*******************************************************************************
 *
-*  (C) COPYRIGHT AUTHORS, 2018
+*  (C) COPYRIGHT AUTHORS, 2018 - 2019
 *
 *  TITLE:       GLOBAL.H
 *
-*  VERSION:     1.01
+*  VERSION:     1.02
 *
-*  DATE:        29 Nov 2018
+*  DATE:        20 May 2019
 *
 *  Common include header file.
 *
@@ -16,6 +16,8 @@
 * PARTICULAR PURPOSE.
 *
 *******************************************************************************/
+
+#pragma once
 
 #include <windows.h>
 #include <ShlObj.h>
@@ -29,7 +31,7 @@
 #endif
 
 #if defined (_MSC_VER)
-#if (_MSC_VER >= 1910)
+#if (_MSC_VER >= 1900)
 #ifdef _DEBUG
 #pragma comment(lib, "vcruntimed.lib")
 #pragma comment(lib, "ucrtd.lib")
@@ -40,7 +42,7 @@
 #endif
 #endif
 
-#pragma once
+#pragma warning(disable: 6320)
 
 typedef struct _MP_API {
     pfnMpManagerOpen MpManagerOpen;

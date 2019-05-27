@@ -13,9 +13,9 @@ No specific usage required. Just run compiled executable (in command prompt for 
 
 # Dump
 Included dump of following versions: 
-+ AV Signatures: 1.273.443.0 / 1.273.1601.0 / 1.281.53.0
-+ AS Signatures: 1.273.443.0 / 1.273.1601.0 / 1.281.53.0
-+ NIS Signatures: 1.273.443.0 / 1.273.1601.0 / 1.281.53.0
++ AV Signatures: 1.273.443.0 / 1.273.1601.0 / 1.281.53.0 / 1.293.2098.0
++ AS Signatures: 1.273.443.0 / 1.273.1601.0 / 1.281.53.0 / 1.293.2098.0
++ NIS Signatures: 1.273.443.0 / 1.273.1601.0 / 1.281.53.0 / 1.293.2098.0
 
 # Note
 
@@ -37,4 +37,4 @@ MpEnum comes with full source code written in C. Please note that included MpCli
 
 # Authors
 
-(c) 2018 MpEnum Project
+(c) 2018 - 2019 MpEnum Project
