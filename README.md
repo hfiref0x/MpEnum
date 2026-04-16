@@ -10,6 +10,9 @@
 # Usage
 No specific usage required. Just run compiled executable (in command prompt for better experience).
 
+# Dump
+Example of dumped table for definitions version 1.449.126.0 located in ```data\1.449.126.0.zip```
+
 # Note
 
 MpEnum enumerates known-bad signature threats through MpClient, groups them by category and saves results into version-specific output directory named after AV signature version. This tool is now part of WDExtract, WDSigEx toolchain. WDSigEx uses generated file to map actual threat names.
