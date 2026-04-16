@@ -1,0 +1,46 @@
+name: Build MpEnum
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+env:
+  BUILD_CONFIGURATION: Release
+  PLATFORM: x64
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v3
+
+      - name: Build walker x64
+        working-directory: ./src
+        run: msbuild walker.sln /m /p:Platform=${{ env.PLATFORM }} /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:PlatformToolset=v143
+
+      - name: Collect snapshot files
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path Package\Application | Out-Null
+
+          $exePath = "src\Takanami\output\${{ env.PLATFORM }}\${{ env.BUILD_CONFIGURATION }}\walker.exe"
+
+          if (!(Test-Path $exePath)) {
+            throw "walker.exe not found at $exePath"
+          }
+
+          Copy-Item $exePath "Package\Application\walker.exe" -Force
+
+      - name: Upload mpenum snapshot
+        uses: actions/upload-artifact@v6
+        with:
+          name: mpenum_snapshot.zip
+          path: Package\Application\*
